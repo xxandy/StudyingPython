@@ -6,9 +6,8 @@
 import sys
 
 
-
+# -----------------------------
 class CacheEntry:
-
   #CacheEntry class constructor
   def __init__(self, nUrl, nContents):
     self.url = nUrl
@@ -22,7 +21,7 @@ class CacheEntry:
 
 
 
-
+# -----------------------------
 class RecentCache:
   MAX_ENTRIES = 10
 
@@ -176,8 +175,3 @@ print("--")
 
 
 print("========== END =========")
-somename = "alexandre"
-
-print("ahhh shureya " + somename  )
-print( somename[:-1] )
-print( sorted(somename[:-1]) )
