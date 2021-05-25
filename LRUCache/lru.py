@@ -21,6 +21,8 @@ class Cache:
       # unlink it from where it is
       found = node.next_
       node.next_ = found.next_
+      if node.next_ is None:
+        self.newest_ = node
       found.contents_ = contents
       found.next_ = None # its the last one now
       node = found
@@ -56,8 +58,17 @@ class Cache:
 cache = Cache(4)
 
 print()
-print("-----test case 1")
+print("-----test case 0")
 cache.accessPage("a", "ACont")
+cache.printContents()
+
+print()
+print("-----test case 1")
+cache.accessPage("a", "AContV2")
+cache.printContents()
+
+print()
+print("-----test case 2")
 cache.accessPage("b", "BCont")
 cache.accessPage("c", "CCont")
 cache.accessPage("d", "DCont")
@@ -65,23 +76,29 @@ cache.printContents()
 
 
 print()
-print("-----test case 2")
+print("-----test case 3")
 cache.accessPage("e", "ECont")
 cache.printContents()
 
 print()
-print("-----test case 3")
+print("-----test case 4")
 cache.accessPage("f", "FCont")
 cache.printContents()
 
 print()
-print("-----test case 4")
+print("-----test case 5")
 cache.accessPage("d", "Dnewcontents")
 cache.printContents()
 
 print()
-print("-----test case 5")
+print("-----test case 6")
 cache.accessPage("c", "Cnewcontents")
+cache.printContents()
+
+
+print()
+print("-----test case 7")
+cache.accessPage("c", "Creupdated")
 cache.printContents()
 
 
