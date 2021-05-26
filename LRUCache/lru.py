@@ -1,5 +1,11 @@
 #Super simple LRU  cache
-# Write Python 3 code in this online editor and run it.
+# Uses a dummy entry to avoid having a doubly-linked list.
+#  The dictionary points to the PRIOR item of every entry,
+#  thus providing an indirect link that replaces the prev 
+#  reference.
+#  (however, this is hartly worth it, because of the price
+#   we pay having to update the dictionary when items 
+#   move around)
 class Entry:
   def __init__(self, urlI, contentsI ):
     self.next_ = None
@@ -23,6 +29,8 @@ class Cache:
       node.next_ = found.next_
       if node.next_ is None:
         self.newest_ = node
+      else:
+        self.prevKey_[ node.next_.url_ ] = node
       found.contents_ = contents
       found.next_ = None # its the last one now
       node = found
@@ -99,6 +107,11 @@ cache.printContents()
 print()
 print("-----test case 7")
 cache.accessPage("c", "Creupdated")
+cache.printContents()
+
+print()
+print("-----test case 8")
+cache.accessPage("e", "ENewContents")
 cache.printContents()
 
 
