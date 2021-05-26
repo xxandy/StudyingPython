@@ -1,5 +1,7 @@
 #Super simple LRU  cache
 # Uses a dummy entry to avoid having a doubly-linked list.
+#  --> with the "sneaky" addition that the dummy is "self",
+#      allowed by python's duck typing (quacks like a duck..)
 #  The dictionary points to the PRIOR item of every entry,
 #  thus providing an indirect link that replaces the prev 
 #  reference.
@@ -18,8 +20,8 @@ class Cache:
     self.usedEntries_ = 0
     self.prevKey_ = {}
     # Entry records
-    self.oldest_ = Entry(None, None) #wasted dummy
-    self.newest_ = self.oldest_
+    self.next_ = None
+    self.newest_ = self # crazy, but it works! Quack!
 
   def accessPage(self, url, contents):
     node = self.prevKey_.get(url)
@@ -38,11 +40,11 @@ class Cache:
       # make room if needed
       if self.usedEntries_ >= self.maxEntries_:
         #unlink oldest element
-        first = self.oldest_.next_
+        first = self.next_
         second = first.next_
-        self.oldest_.next_  = second
+        self.next_  = second
         self.prevKey_.pop( first.url_, None )
-        self.prevKey_[second.url_] = self.oldest_
+        self.prevKey_[second.url_] = self
       else:
         self.usedEntries_ += 1
       node = Entry( url, contents )
@@ -54,7 +56,7 @@ class Cache:
     self.prevKey_[url] = prev
 
   def printContents(self):
-    e = self.oldest_.next_
+    e = self.next_
     print("---list---")
     while e is not None:
       print( e.url_ + " " + e.contents_ )
