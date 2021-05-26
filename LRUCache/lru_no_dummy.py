@@ -86,6 +86,8 @@ class Cache:
       
 cache = Cache(4)
 
+print("NO DUMMY version")
+
 print()
 print("-----test case 0")
 cache.accessPage("a", "ACont")
