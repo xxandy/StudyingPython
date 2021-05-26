@@ -130,5 +130,10 @@ print("-----test case 7")
 cache.accessPage("c", "Creupdated")
 cache.printContents()
 
+print()
+print("-----test case 8")
+cache.accessPage("e", "Enewcontents")
+cache.printContents()
+
 
 print("--- done ---")
